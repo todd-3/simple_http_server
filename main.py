@@ -1,7 +1,8 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import loads as jloads
 from urllib.parse import parse_qs as parser
-from os import popen
+from os import popen, system
+from os.path import join
 
 ip = popen("hostname -I").read()[:-2]  # gets device IP address
 host:str = ""  # host name for server (if blank defaults to all available network interfaces)
@@ -56,15 +57,25 @@ class Server(BaseHTTPRequestHandler):
                 self.send_response(400)
                 return
 
-            print(parse_contents)
+            try:
+                with open(join("server_writes", parse_contents["name"]), "w") as new_file:
+                    print(f"Creating file {parse_contents['name']}")
+                    new_file.write(parse_contents["body"])
 
-            self.send_response(301)
-            self.send_header("Location", "/file_accepted")
-            self.end_headers()
+                self.send_response(301)
+                self.send_header("Location", "/file_accepted")
+                self.end_headers()
+            except Exception as e:
+                print("Ran into Issue while creating file:", e)
+                self.send_response(500)
+
+
         else:
             self.send_response(404)
 
 if __name__ == "__main__":
+    system("mkdir server_writes")
+
     webserver = HTTPServer((host, port), Server)
     print(f"{ip} IS USING PORT {port}")
 
