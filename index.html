@@ -4,16 +4,22 @@
         <meta charset="UTF8">
     </head>
     <body>
-        <h1>HELLO!!</h1>
-        <p>The Server is working!!</p>
+        <h1>Lets Make a File!!</h1>
+        <p>Fill out the form bellow to create a text file on our server.</p>
 
         <form method="post" action="/submit">
-            <label>
-                <input type="text" placeholder="Put Text Here" name="testing">
-            </label>
-            <label>
-                <input type="text" placeholder="Put More Text Here" name="testing_2">
-            </label>
+            <label for="file_name">
+                <span class="inputs">File Name:</span>
+                <input required type="text" placeholder="File name" id="file_name" name="name"></label><br>
+
+            <label for="file_body">
+                <span class="inputs">File Contents:</span>
+                <br>
+                <textarea required id="file_body" name="body" cols="50" rows="20"
+                          placeholder="Write your files contents here">
+                </textarea>
+            </label><br>
+
             <label>
                 <input type="submit">
             </label>
