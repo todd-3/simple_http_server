@@ -60,7 +60,12 @@ class Server(BaseHTTPRequestHandler):
             try:
                 with open(join("server_writes", parse_contents["name"]), "w") as new_file:
                     print(f"Creating file {parse_contents['name']}")
-                    new_file.write(parse_contents["body"])
+
+                    file_body = parse_contents["body"]
+                    if parse_contents["author"]:
+                        file_body += "\n\nAuthored By: " + parse_contents["author"]
+
+                    new_file.write(file_body)
 
                 self.send_response(301)
                 self.send_header("Location", "/file_accepted")

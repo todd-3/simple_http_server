@@ -17,13 +17,19 @@
         <form method="post" action="/submit">
             <label for="file_name">
                 <span class="inputs">File Name:</span>
-                <input required type="text" placeholder="File name" id="file_name" name="name"></label><br>
+                <input required type="text" placeholder="File name" id="file_name" name="name">
+            </label><br>
 
             <label for="file_body">
                 <span class="inputs">File Contents:</span>
                 <br>
                 <textarea required id="file_body" name="body" cols="50" rows="20"
                           placeholder="Write your files contents here"></textarea>
+            </label><br>
+
+            <label for="file_author">
+                <span class="inputs">Author (optional):</span>
+                <input type="text" placeholder="File author" id="file_author" name="author">
             </label><br>
 
             <label>
