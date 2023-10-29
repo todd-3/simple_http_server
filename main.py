@@ -43,7 +43,6 @@ class Server(BaseHTTPRequestHandler):
 
             length = int(self.headers["Content-Length"])
             contents = self.rfile.read(length).decode("utf8")  # read incoming contents and encode as utf8
-            print(contents)
 
             if self.headers["Content-Type"] == "application/x-www-form-urlencoded":  # html form type
                 # user urllib.parse.parse_qs to parse returned parameter string to json
