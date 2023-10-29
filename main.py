@@ -72,6 +72,9 @@ class Server(BaseHTTPRequestHandler):
 
         else:
             self.send_response(404)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
+            self.wfile.write(not_found_page)
 
 if __name__ == "__main__":
     system("mkdir server_writes")
