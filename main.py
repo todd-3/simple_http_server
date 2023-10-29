@@ -7,8 +7,8 @@ ip = popen("hostname -I").read()[:-2]  # gets device IP address
 host:str = ""  # host name for server (if blank defaults to all available network interfaces)
 port = 8080  # port to host server on
 
-with open("index.html", "rb") as file:
-    main_page = file.read()  # load in index.html as a byte object
+with open("main_page.html", "rb") as file:
+    main_page = file.read()  # load in main_page.html as a byte object
 
 with open("404_page.html", "rb") as file:
     not_found_page = file.read()  # load in 404_page.html as a byte object
@@ -19,7 +19,7 @@ class Server(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "text/html")
             self.end_headers()
-            self.wfile.write(main_page)  # send contents of index.html
+            self.wfile.write(main_page)  # send contents of main_page.html
         else:  # if request is not to {host}:{port}/ do not return a page
             self.send_response(404)
             self.send_header("Content-type", "text/html")
