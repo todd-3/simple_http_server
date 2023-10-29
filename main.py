@@ -13,6 +13,9 @@ with open("main_page.html", "rb") as file:
 with open("404_page.html", "rb") as file:
     not_found_page = file.read()  # load in 404_page.html as a byte object
 
+with open("post_accepted.html", "rb") as file:
+    accepted_page = file.read()
+
 class Server(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/":
@@ -20,6 +23,13 @@ class Server(BaseHTTPRequestHandler):
             self.send_header("Content-type", "text/html")
             self.end_headers()
             self.wfile.write(main_page)  # send contents of main_page.html
+
+        elif self.path == "/file_accepted":
+            self.send_response(200)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
+            self.wfile.write(accepted_page)
+
         else:  # if request is not to {host}:{port}/ do not return a page
             self.send_response(404)
             self.send_header("Content-type", "text/html")
@@ -48,9 +58,8 @@ class Server(BaseHTTPRequestHandler):
 
             print(parse_contents)
 
-            # redirect request to {host}:{port}/
             self.send_response(301)
-            self.send_header("Location", "/")  # self.headers["Referer"])
+            self.send_header("Location", "/file_accepted")
             self.end_headers()
         else:
             self.send_response(404)
